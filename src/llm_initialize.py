@@ -30,17 +30,17 @@ class LLMInitializer:
             AWS_REGION = os.getenv("AWS_REGION")
             os.environ["AWS_REGION"] = AWS_REGION
 
-            os.environ["MODEL_ID_1"] = os.getenv("MODEL_ID_1")
-            MODEL_ID_1 = os.environ["MODEL_ID_1"]
+            # os.environ["MODEL_ID_1"] = os.getenv("MODEL_ID_1")
+            # MODEL_ID_1 = os.environ["MODEL_ID_1"]
 
-            os.environ["MODEL_PROVIDER_1"] = os.getenv("MODEL_PROVIDER_1")
-            MODEL_PROVIDER_1 = os.environ["MODEL_PROVIDER_1"]
+            # os.environ["MODEL_PROVIDER_1"] = os.getenv("MODEL_PROVIDER_1")
+            # MODEL_PROVIDER_1 = os.environ["MODEL_PROVIDER_1"]
 
-            os.environ["MODEL_ID_2"] = os.getenv("MODEL_ID_2")
-            MODEL_ID_2 = os.environ["MODEL_ID_2"]
+            # os.environ["MODEL_ID_2"] = os.getenv("MODEL_ID_2")
+            # MODEL_ID_2 = os.environ["MODEL_ID_2"]
 
-            os.environ["MODEL_PROVIDER_2"] = os.getenv("MODEL_PROVIDER_2")
-            MODEL_PROVIDER_2 = os.environ["MODEL_PROVIDER_2"]
+            # os.environ["MODEL_PROVIDER_2"] = os.getenv("MODEL_PROVIDER_2")
+            # MODEL_PROVIDER_2 = os.environ["MODEL_PROVIDER_2"]
 
             os.environ["MODEL_ID_3"] = os.getenv("MODEL_ID_3")
             MODEL_ID_3 = os.environ["MODEL_ID_3"]
@@ -48,54 +48,54 @@ class LLMInitializer:
             os.environ["MODEL_PROVIDER_3"] = os.getenv("MODEL_PROVIDER_3")
             MODEL_PROVIDER_3 = os.environ["MODEL_PROVIDER_3"]
 
-            os.environ["MODEL_ID_4"] = os.getenv("MODEL_ID_4")
-            MODEL_ID_4 = os.environ["MODEL_ID_4"]
+            # os.environ["MODEL_ID_4"] = os.getenv("MODEL_ID_4")
+            # MODEL_ID_4 = os.environ["MODEL_ID_4"]
 
-            os.environ["MODEL_PROVIDER_4"] = os.getenv("MODEL_PROVIDER_4")
-            MODEL_PROVIDER_4 = os.environ["MODEL_PROVIDER_4"]
+            # os.environ["MODEL_PROVIDER_4"] = os.getenv("MODEL_PROVIDER_4")
+            # MODEL_PROVIDER_4 = os.environ["MODEL_PROVIDER_4"]
 
 
-            if model_num == 1:
-                model_kwargs = {"max_gen_len": 512, "temperature": temperature}
-                if top_p is not None:
-                    model_kwargs["top_p"] = top_p
-                if top_k is not None:
-                    model_kwargs["top_k"] = top_k
+            if model_num == 3:
+            #     model_kwargs = {"max_gen_len": 512, "temperature": temperature}
+            #     if top_p is not None:
+            #         model_kwargs["top_p"] = top_p
+            #     if top_k is not None:
+            #         model_kwargs["top_k"] = top_k
                 
-                self.llm = ChatBedrock(
-                    provider=MODEL_PROVIDER_1,
-                    model_id=MODEL_ID_1,
-                    region_name=AWS_REGION,
-                    model_kwargs=model_kwargs,
-                    streaming=True,
-                    cache=False
-                )
+            #     self.llm = ChatBedrock(
+            #         provider=MODEL_PROVIDER_1,
+            #         model_id=MODEL_ID_1,
+            #         region_name=AWS_REGION,
+            #         model_kwargs=model_kwargs,
+            #         streaming=True,
+            #         cache=False
+            #     )
 
-                self.llm.provider_stop_sequence_key_name_map = {'anthropic': 'stop_sequences', 'amazon': 'stopSequences',
-                'ai21': 'stop_sequences', 'cohere': 'stop_sequences',
-                'mistral': 'stop','meta': 'stop'}
+            #     self.llm.provider_stop_sequence_key_name_map = {'anthropic': 'stop_sequences', 'amazon': 'stopSequences',
+            #     'ai21': 'stop_sequences', 'cohere': 'stop_sequences',
+            #     'mistral': 'stop','meta': 'stop'}
 
-            elif model_num == 2:
-                model_kwargs = {"temperature": temperature, "max_tokens": 8192}
-                if top_p is not None:
-                    model_kwargs["top_p"] = top_p
-                if top_k is not None:
-                    model_kwargs["top_k"] = top_k
+            # elif model_num == 2:
+            #     model_kwargs = {"temperature": temperature, "max_tokens": 8192}
+            #     if top_p is not None:
+            #         model_kwargs["top_p"] = top_p
+            #     if top_k is not None:
+            #         model_kwargs["top_k"] = top_k
                 
-                self.llm = ChatBedrock(
-                    provider=MODEL_PROVIDER_2,
-                    model_id=MODEL_ID_2,
-                    region_name=AWS_REGION,
-                    model_kwargs=model_kwargs,
-                    streaming=False,
-                    cache=False
-                )
+            #     self.llm = ChatBedrock(
+            #         provider=MODEL_PROVIDER_2,
+            #         model_id=MODEL_ID_2,
+            #         region_name=AWS_REGION,
+            #         model_kwargs=model_kwargs,
+            #         streaming=False,
+            #         cache=False
+            #     )
 
-                self.llm.provider_stop_sequence_key_name_map = {'anthropic': 'stop_sequences', 'amazon': 'stopSequences',
-                'ai21': 'stop_sequences', 'cohere': 'stop_sequences',
-                'mistral': 'stop','meta': 'stop'}
+            #     self.llm.provider_stop_sequence_key_name_map = {'anthropic': 'stop_sequences', 'amazon': 'stopSequences',
+            #     'ai21': 'stop_sequences', 'cohere': 'stop_sequences',
+            #     'mistral': 'stop','meta': 'stop'}
 
-            elif model_num ==3: 
+            # elif model_num ==3: 
                 model_kwargs = {
                 "temperature": temperature,
                 "max_tokens": 8192}
@@ -111,12 +111,13 @@ class LLMInitializer:
                     region_name=AWS_REGION,
                     streaming=False,
                     model_kwargs=model_kwargs,
+                    verbose= True,
                     cache=False
                 )
                 self.llm.provider_stop_sequence_key_name_map = {'anthropic': 'stop_sequences', 'amazon': 'stopSequences',
                                                             'ai21': 'stop_sequences', 'cohere': 'stop_sequences',
                                                             'mistral': 'stop','meta': 'stop','custom': 'END_GENERATION'}
-            else:
+            elif model_num ==4:
 
                 # model_kwargs = {
                 # "temperature": temperature,
@@ -139,14 +140,26 @@ class LLMInitializer:
                 #                                             'ai21': 'stop_sequences', 'cohere': 'stop_sequences',
                 # 
                 #                                             'mistral': 'stop','meta': 'stop','custom': 'END_GENERATION'}
+                # "bedrock/us.anthropic.claude-3-5-sonnet-20241022-v2:0"
+                #"bedrock/us.anthropic.claude-sonnet-4-20250514-v1:0"
 
                 self.llm = LLM(
-                                model="bedrock/us.anthropic.claude-3-5-sonnet-20241022-v2:0",
+                                model="bedrock/us.anthropic.claude-sonnet-4-20250514-v1:0",
                                 aws_access_key_id=AWS_ACCESS_KEY,
                                 aws_secret_access_key=AWS_SECRET_KEY,
                                 aws_region_name=AWS_REGION,
                                 temperature=temperature,
-                                max_tokens=8192)
+                                verbose=True,
+                                max_tokens=20000)
+            else:
+                self.llm = LLM(
+                                model="bedrock/us.anthropic.claude-opus-4-20250514-v1:0",
+                                aws_access_key_id=AWS_ACCESS_KEY,
+                                aws_secret_access_key=AWS_SECRET_KEY,
+                                aws_region_name=AWS_REGION,
+                                temperature=temperature,
+                                verbose=True)
+                    
                 
                 # self.llm.provider_stop_sequence_key_name_map = {'anthropic': 'stop_sequences', 'amazon': 'stopSequences',
                 #                                             'ai21': 'stop_sequences', 'cohere': 'stop_sequences',

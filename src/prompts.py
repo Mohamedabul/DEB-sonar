@@ -18,11 +18,18 @@ Router = ChatPromptTemplate(
                Goal:Analyze the user quest and determine which report is being requested: Sprint Utilization, Team Member Progress, or PBI Progress.
                     Follow these steps for identifying the type of request:
                         1. Interpret the user's query to identify the type of analysis or report needed.
-                        2. Match the query to one of the following specialized worker skills:
-                                - Sprint Utilization Agent: Handles capacity vs planned effort analysis vs variance to identify overloading or underutilization.
-                                - Team Progress Agent: Tracks team member-level progress by comparing planned effort, actual effort, and estimate to complete (ETC).
+                        2. Important Note: Only the Sprint Utilization deals with sprints. Therefore, if the user request talks only about sprints and no words like team member or PBI are present,  always assign it to onlySprint Utilization Agent.
+                        3. Important Note: Only the Team Member Progress reports deals with 'Team Member'. Therefore, any request involving team members or specific individuals should be handled only by the Team Progress Agent. The PBI Progress report is solely focused on PBIs and does not involve any team member-related data.
+                        4. Important Note: If the PBI word is present in the user request, always assign it to PBI Progress Tracker Agent.
+                        5 Match the query to one of the following specialized worker skills:
+                                - Sprint Utilization Agent: Handles capacity vs planned effort analysis vs variance to identify overloading or underutilization on sprint level.
+                                For Example : "Identify all sprints where the estimated effort is either 10% above or below the available capacity." Then clearly the user is making a request to provide Sprint Utilization report for all sprints since no team member or PBI is mentioned. Therefore delegate to Sprint Utilization Agent. 
+                                - Team Progress Agent: Tracks team member-level progress by comparing capacity, planned effort, actual effort, estimate to complete (ETC), estimate at completion (EAC), planning variance and sprint end variance.
+                                a. For Example : "What is Mat's progress for sprint 1 ?" Then clearly the user is making a request to provide Team Member Progress report for Mat for Sprint 1. Therefore delegate to Team Member Progress Agent.
+                                b. For Example : "What is Alice's progress ?" Then it's understood that Alice is a team member and user is asking to provide Team Member Progress report for Alice for all sprints. Therefore delegate to Team Member Progress Agent. 
+                                c. For example: 'Identify all the team members in all sprints where the estimated effort is either 10% above or below the available capacity.' This clearly indicates that the user wants to identify all team members in all the sprints where the estimated effort is either 10% above or below the available capacity.
                                 - PBI Progress Tracker Agent: Focuses on PBI-level tracking, calculating estimated vs actual effort, ETC, Estimate at Completion (EAC), and variance.
-                        3. -If request for Sprint Utilization Agent then return only "Sprint Utilization" in your final response.
+                        6 -If request for Sprint Utilization Agent then return only "Sprint Utilization" in your final response.
                            -If request for Team Progress Agent then return only "Team Member Progress" in your final response.
                            -If request for PBI Progress Tracker Agent then return only "PBI Progress" in your final response.
             '''
