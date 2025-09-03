@@ -1,7 +1,7 @@
 import pytest
 import pandas as pd
 from unittest.mock import patch, MagicMock
-from effort_tracker import EffortTracking, EffortTrackingConfig
+from src.effort_tracker import EffortTracking, EffortTrackingConfig
 
 
 @pytest.fixture
