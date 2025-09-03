@@ -19,7 +19,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Shallow clones should be disabled for SonarCloud
+          fetch-depth: 0
 
       # Setup Python
       - name: Set up Python
@@ -37,7 +37,7 @@ jobs:
       # Run tests with coverage
       - name: Run tests
         run: |
-          pytest --cov
+          PYTHONPATH=src pytest tests/ --cov=src --cov-report=xml:coverage.xml --junitxml=test-report.xml -v
 
       # Cache SonarCloud packages
       - name: Cache SonarCloud packages
