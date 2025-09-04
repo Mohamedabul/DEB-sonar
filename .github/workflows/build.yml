@@ -37,6 +37,11 @@ jobs:
       # Run tests with coverage
       - name: Run tests
         run: |
+          export AWS_ACCESS_KEY="dummy"
+          export AWS_SECRET_KEY="dummy"
+          export AWS_REGION="us-east-1"
+          export MODEL_ID_3="dummy-model"
+          export MODEL_PROVIDER_3="dummy-provider"
           PYTHONPATH=src pytest tests/ --cov=src --cov-report=xml:coverage.xml --junitxml=test-report.xml -v
 
       # Cache SonarCloud packages
