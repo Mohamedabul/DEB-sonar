@@ -34,15 +34,14 @@ jobs:
           pip install -r requirements.txt
           pip install pytest pytest-cov
 
-      # Run tests with coverage
-      - name: Run tests
+      - name: Run tests with coverage
         run: |
-          export AWS_ACCESS_KEY="dummy"
-          export AWS_SECRET_KEY="dummy"
-          export AWS_REGION="us-east-1"
-          export MODEL_ID_3="dummy-model"
-          export MODEL_PROVIDER_3="dummy-provider"
-          PYTHONPATH=src pytest tests/ --cov=src --cov-report=xml:coverage.xml --junitxml=test-report.xml -v
+          pytest --cov=src --cov=app.py \
+                 --cov-report=xml:coverage.xml \
+                 --junitxml=test-report.xml -v
+          # Debug to ensure report exists
+          ls -lh coverage.xml test-report.xml
+          head -n 20 coverage.xml
 
       # Cache SonarCloud packages
       - name: Cache SonarCloud packages
