@@ -28,8 +28,8 @@ def sample_dataframe():
 @pytest.fixture
 def patched_config(sample_dataframe):
     """Patch EffortTrackingConfig to return mock LLMs and sample dataframe."""
-    with patch("effort_tracker.LLMInitializer") as MockLLMInit, \
-         patch("effort_tracker.DataFetching") as MockDataFetching:
+    with patch("src.effort_tracker.LLMInitializer") as MockLLMInit, \
+         patch("src.effort_tracker.DataFetching") as MockDataFetching:
 
         # Mock LLMInitializer
         mock_llm = MagicMock()
