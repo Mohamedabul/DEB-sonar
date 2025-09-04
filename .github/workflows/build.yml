@@ -55,11 +55,5 @@ jobs:
       # SonarCloud Scan
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2
-        with:
-          args: >
-            -Dsonar.projectKey=Mohamedabul_DEB-sonar
-            -Dsonar.organization=Mohamedabul
-            -Dsonar.python.coverage.reportPaths=coverage.xml
-            -Dsonar.python.xunit.reportPath=test-report.xml
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
