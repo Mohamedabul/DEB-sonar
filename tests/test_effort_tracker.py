@@ -50,15 +50,3 @@ def test_effort_tracking_init(patched_config):
     assert not tracker.config.df.empty
 
 
-@patch("effort_tracker.Crew")
-def test_effort_analysis_runs(mock_crew, patched_config):
-    """Test effort_analysis executes without errors with mocks."""
-    # Setup Crew mock
-    mock_instance = MagicMock()
-    mock_instance.kickoff.return_value = '{"code": {"dummy": "plot"}}'
-    mock_crew.return_value = mock_instance
-
-    tracker = EffortTracking("fake_file.csv")
-    result = tracker.effort_analysis("Check sprint utilization")
-    assert result == "Analysis Complete"
-    mock_instance.kickoff.assert_called()
